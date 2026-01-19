@@ -1,2 +1,36 @@
 @use '_mobile';
 @use '_desktop';
+
+:root {
+    --bg-color: #FFFEF5;
+    --heading-color: #3A5A40;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Montserrat', system-ui;
+    font-size: 16px;
+}
+
+h1, h2, h3 {
+    color: var(--heading-color);
+      font-family: 'Playfair Display', system-ui;
+}
+
+button {
+    font-family: 'Montserrat', system-ui;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    min-height: 100%;
+    display: none;
+}
+
+nav.open {
+    display: block;
+}

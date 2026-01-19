@@ -1,5 +1,19 @@
 import './style.scss';
 
+const menuBtn = document.querySelector('#menuBtn');
+const nav = document.querySelector('#nav')
+
+menuBtn.addEventListener('click', openMenu);
+nav.addEventListener('click', openMenu);
+
+function openMenu(e) {
+  if (e.target.nodeName == 'A') {
+    return;
+  }
+  nav.classList.toggle('open');
+
+
+}
 //-------------------------------------
 //---------------PRODUCTS--------------
 //-------------------------------------
@@ -154,7 +168,6 @@ function sortProductsByPriceDesc(){
   filteredProducts = product.sort((product1, product2) => product2.price - product1.price);
   printProducts();
 }
-
 function sortProductsByRatingAsc(){
   filteredProducts = product.sort((product1, product2) => product1.rating - product2.rating);
   printProducts();
