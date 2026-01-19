@@ -1,39 +1,53 @@
 <!doctype html>
 <html lang="sv">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍩</text></svg>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FED25D | Inlämningsuppgift 1</title>
-  </head>
-  <body>
-        <header>
-        <h1>Min webbshop</h1>
-        <nav class="navbar">
-            <ul>
-                <li><a href="#">Hem</a></li>
-                <li><a href="#">Om oss</a></li>
-                <li><a href="#">Kontakt</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-         <section>
-            <h2>Produkter</h2>
-            <button id="bodyScrubsFilterBtn">Body Scrubs</button>
-            <button id="scentedCandlesFilterBtn">Doftljus</button>
-            <button id="soapsFilterBtn">Tvåler</button>
-            <button id="showAllFilterBtn">Visa alla</button>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍩</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FED25D | Inlämningsuppgift 1</title>
+</head>
 
-            <div class="product-list" id="products">
-            </div>
-        </section>
-    </main>
-    
-    <footer>
-      footer
-    </footer>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<body>
+  <header>
+    <h1>Min webbshop</h1>
+    <nav class="navbar">
+      <ul>
+        <li><a href="#">Hem</a></li>
+        <li><a href="#">Om oss</a></li>
+        <li><a href="#">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Produkter</h2>
+
+      <!--Filter buttons-->
+      <button id="bodyScrubsFilterBtn">Body Scrubs</button>
+      <button id="scentedCandlesFilterBtn">Doftljus</button>
+      <button id="soapsFilterBtn">Tvåler</button>
+      <button id="showAllFilterBtn">Visa alla</button>
+
+      <!--Sort buttons-->
+      <button id="sortByNameAscBtn">Sortera A-Ö</button>
+      <button id="sortByNameDescBtn">Sortera Ö-A</button>
+      <button id="sortByPriceAscBtn">Pris stigande</button>
+      <button id="sortByPriceDescBtn">Pris fallande</button>
+      <button id="sortByRatingAscBtn">Betyg stigande</button>
+      <button id="sortByRatingDescBtn">Betyg fallande</button>
+
+      <div class="product-list" id="products">
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    footer
+  </footer>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>

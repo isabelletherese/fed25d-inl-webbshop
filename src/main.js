@@ -120,6 +120,50 @@ function showAllProducts() {
   printProducts();
 }
 
+//----------------------------------------
+//--------------SORT BUTTONS--------------
+//----------------------------------------
+
+const sortByNameAscBtn = document.querySelector('#sortByNameAscBtn');
+const sortByNameDescBtn = document.querySelector('#sortByNameDescBtn');
+const sortByPriceAscBtn = document.querySelector('#sortByPriceAscBtn');
+const sortByPriceDescBtn = document.querySelector('#sortByPriceDescBtn');
+const sortByRatingAscBtn = document.querySelector('#sortByRatingAscBtn');
+const sortByRatingDescBtn = document.querySelector('#sortByRatingDescBtn');
+
+sortByNameAscBtn.addEventListener('click', sortProductsByNameAsc);
+sortByNameDescBtn.addEventListener('click', sortProductsByNameDesc);
+sortByPriceAscBtn.addEventListener('click', sortProductsByPriceAsc);
+sortByPriceDescBtn.addEventListener('click', sortProductsByPriceDesc);
+sortByRatingAscBtn.addEventListener('click', sortProductsByRatingAsc);
+sortByRatingDescBtn.addEventListener('click', sortProductsByRatingDesc);
+
+function sortProductsByNameAsc() {
+  filteredProducts = product.sort((product1, product2) => product1.name > product2.name);
+  printProducts();
+}
+function sortProductsByNameDesc() {
+  filteredProducts = product.sort((product1, product2) => product1.name < product2.name);
+  printProducts();
+}
+function sortProductsByPriceAsc(){
+  filteredProducts = product.sort((product1, product2) => product1.price - product2.price);
+  printProducts();
+}
+function sortProductsByPriceDesc(){
+  filteredProducts = product.sort((product1, product2) => product2.price - product1.price);
+  printProducts();
+}
+
+function sortProductsByRatingAsc(){
+  filteredProducts = product.sort((product1, product2) => product1.rating - product2.rating);
+  printProducts();
+}
+function sortProductsByRatingDesc(){
+  filteredProducts = product.sort((product1, product2) => product2.rating - product1.rating);
+  printProducts();
+}
+
 function printProducts() {
   productsList.innerHTML = '';
 
