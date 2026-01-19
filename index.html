@@ -6,15 +6,24 @@
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍩</text></svg>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
   <title>FED25D | Inlämningsuppgift 1</title>
 </head>
 
 <body>
   <header>
-    <h1>Min webbshop</h1>
-    
-    <button id="menuBtn">Meny</button>
+    <h1> Min webbshop</h1>
+
+    <!--// TO DO: LÄGG TILL CLOSE ICON & STYLA MENYN I CSS--> 
+
+    <button id="menuBtn" type="button">
+      <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="3A5A40">
+        <path d="M120-240v-66.67h720V-240H120Zm0-206.67v-66.66h720v66.66H120Zm0-206.66V-720h720v66.67H120Z" />
+      </svg>
+    </button>
+
     <nav id="nav">
       <ul>
         <li><a href="#">Hem</a></li>
@@ -29,18 +38,29 @@
       <h2>Produkter</h2>
 
       <!--Filter buttons-->
-      <button id="bodyScrubsFilterBtn">Body Scrubs</button>
-      <button id="scentedCandlesFilterBtn">Doftljus</button>
-      <button id="soapsFilterBtn">Tvåler</button>
-      <button id="showAllFilterBtn">Visa alla</button>
+      <button type="button" id="bodyScrubsFilterBtn" >Body Scrubs</button>
+      <button type="button" id="scentedCandlesFilterBtn">Doftljus</button>
+      <button type="button" id="soapsFilterBtn">Tvåler</button>
+      <button type="button" id="showAllFilterBtn">Visa alla</button>
 
       <!--Sort buttons-->
-      <button id="sortByNameAscBtn">Sortera A-Ö</button>
-      <button id="sortByNameDescBtn">Sortera Ö-A</button>
-      <button id="sortByPriceAscBtn">Pris stigande</button>
-      <button id="sortByPriceDescBtn">Pris fallande</button>
-      <button id="sortByRatingAscBtn">Betyg stigande</button>
-      <button id="sortByRatingDescBtn">Betyg fallande</button>
+     <!-- <label for="sortBy">Sortera efter:</label>
+      <select name="sortBy" id="sortBy">
+        <option value="sortByDefault">Välj sortering</option>
+        <option value="sortByNameAsc">Namn A-Ö</option>
+        <option value="sortByNameDesc">Namn Ö-A</option>
+        <option value="sortByPriceAsc">Pris stigande</option>
+        <option value="sortByPriceDesc">Pris fallande</option>
+        <option value="sortByRatingAsc">Betyg stigande</option>
+        <option value="sortByRatingDesc">Betyg fallande</option>
+      </select> -->
+
+      <button type="button" id="sortByNameAscBtn">Namn A-Ö</button>
+      <button type="button" id="sortByNameDescBtn">Namn Ö-A</button>
+      <button type="button" id="sortByPriceAscBtn">Pris stigande</button>
+      <button type="button" id="sortByPriceDescBtn">Pris fallande</button>
+      <button type="button" id="sortByRatingAscBtn">Betyg stigande</button>
+      <button type="button" id="sortByRatingDescBtn">Betyg fallande</button>
 
       <div class="product-list" id="products">
       </div>
@@ -50,7 +70,7 @@
   <footer>
     footer
   </footer>
-  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/src/main.mjs"></script>
 </body>
 
 </html>

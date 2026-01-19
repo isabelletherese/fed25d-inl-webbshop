@@ -1,9 +1,20 @@
 @use '_mobile';
 @use '_desktop';
 
+* {
+    box-sizing: border-box;}
 :root {
     --bg-color: #FFFEF5;
     --heading-color: #3A5A40;
+}
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 body {
@@ -12,13 +23,26 @@ body {
     font-size: 16px;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     color: var(--heading-color);
-      font-family: 'Playfair Display', system-ui;
+    font-family:'Playfair Display', system-ui;
 }
 
 button {
     font-family: 'Montserrat', system-ui;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    height: 100px;
+}
+
+main,
+header {
+    padding: 10px;
 }
 
 nav {
@@ -33,4 +57,19 @@ nav {
 
 nav.open {
     display: block;
+}
+
+#menuBtn {
+    appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
 }
