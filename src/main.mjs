@@ -4,6 +4,9 @@ import products from './products.mjs';
 let filteredProducts = Array.from(products);
 const productsList = document.querySelector('#products');
 
+const cart = [];
+const cartSection = document.querySelector('#cart');
+
 //----------------------------------------
 //------------MENU BUTTON-----------------
 //----------------------------------------
@@ -30,9 +33,9 @@ const scentedCandlesFilterBtn = document.querySelector('#scentedCandlesFilterBtn
 const soapsFilterBtn = document.querySelector('#soapsFilterBtn');
 const showAllFilterBtn = document.querySelector('#showAllFilterBtn');
 
-bodyScrubsFilterBtn.addEventListener('click', () => filterProductsByCategory ('Body Scrubs'));
-scentedCandlesFilterBtn.addEventListener('click', () => filterProductsByCategory ('Doftljus'));
-soapsFilterBtn.addEventListener('click', () => filterProductsByCategory ('Tvåler'));
+bodyScrubsFilterBtn.addEventListener('click', () => filterProductsByCategory('Body Scrubs'));
+scentedCandlesFilterBtn.addEventListener('click', () => filterProductsByCategory('Doftljus'));
+soapsFilterBtn.addEventListener('click', () => filterProductsByCategory('Tvåler'));
 showAllFilterBtn.addEventListener('click', showAllProducts);
 
 function filterProductsByCategory(category) {
@@ -45,67 +48,145 @@ function showAllProducts() {
 }
 
 //----------------------------------------
-//--------------SORT BUTTONS--------------
+//--------------SORT DROPDOWN-------------
 //----------------------------------------
 
-// ARBETA OM TILL EN DROPDOWN LIST & MINDRE UPPREPAD KOD OM MÖJLIGT!
+const sortByList = document.querySelector('#sortByList');
+sortByList.addEventListener('change', sortProducts);
 
-const sortByNameAscBtn = document.querySelector('#sortByNameAscBtn');
-const sortByNameDescBtn = document.querySelector('#sortByNameDescBtn');
-const sortByPriceAscBtn = document.querySelector('#sortByPriceAscBtn');
-const sortByPriceDescBtn = document.querySelector('#sortByPriceDescBtn');
-const sortByRatingAscBtn = document.querySelector('#sortByRatingAscBtn');
-const sortByRatingDescBtn = document.querySelector('#sortByRatingDescBtn');
+const sortBy = {
+  nameAsc: (a, b) => a.name.localeCompare(b.name),
+  nameDesc: (a, b) => b.name.localeCompare(a.name),
+  priceAsc: (a, b) => a.price - b.price,
+  priceDesc: (a, b) => b.price - a.price,
+  ratingAsc: (a, b) => a.rating - b.rating,
+  ratingDesc: (a, b) => b.rating - a.rating
+};
 
-sortByNameAscBtn.addEventListener('click', sortProductsByNameAsc);
-sortByNameDescBtn.addEventListener('click', sortProductsByNameDesc);
-sortByPriceAscBtn.addEventListener('click', sortProductsByPriceAsc);
-sortByPriceDescBtn.addEventListener('click', sortProductsByPriceDesc);
-sortByRatingAscBtn.addEventListener('click', sortProductsByRatingAsc);
-sortByRatingDescBtn.addEventListener('click', sortProductsByRatingDesc);
-
-function sortProductsByNameAsc(){
-  filteredProducts = products.sort((product1, product2) => product1.name > product2.name);
-  printProducts();
-}
-function sortProductsByNameDesc(){
-  filteredProducts = products.sort((product1, product2) => product1.name < product2.name);
-  printProducts();
-}
-function sortProductsByPriceAsc(){
-  filteredProducts = products.sort((product1, product2) => product1.price - product2.price);
-  printProducts();
-}
-function sortProductsByPriceDesc(){
-  filteredProducts = products.sort((product1, product2) => product2.price - product1.price);
-  printProducts();
-}
-function sortProductsByRatingAsc(){
-  filteredProducts = products.sort((product1, product2) => product1.rating - product2.rating);
-  printProducts();
-}
-function sortProductsByRatingDesc(){
-  filteredProducts = products.sort((product1, product2) => product2.rating - product1.rating);
+function sortProducts() {
+  const selectedSortingValue = sortByList.value;
+  filteredProducts.sort(sortBy[selectedSortingValue]);
   printProducts();
 }
 
 function printProducts() {
   productsList.innerHTML = '';
+  let productCard = '';
 
-  filteredProducts.forEach(products => {
+  filteredProducts.forEach(product => {
 
-    const productCard = `
-    <article>
-    <h3>${products.name}</h3>
-    <p> ${products.brand}</p>
-    <span class='price'>Pris: ${products.price} kr</span>
-    <span class='rating'> Betyg: ${products.rating} / 5</span>
-    <p>Kategori: ${products.category}</p>
-    </article>
+    let creditHtml = '';
+    if(product.imageCredit) {
+      const creditContent = product.imageCreditUrl ?
+      `<a href="${product.imageCreditUrl}" target="_blank" rel="noopener noreferrer">Foto: ${product.imageCredit}</a>`
+      : `Foto: ${product.imageCredit}`;
+      
+      creditHtml = `<figcaption>${creditContent}</figcaption>`;
+    }
+
+    const imgHtml = product.img ? `
+      <figure class="product-image">
+        <img
+      src="${product.img.src}"
+      width="${product.img.width}"
+      height="${product.img.height}"
+      alt="${product.img.alt}"
+      loading="lazy">
+      ${creditHtml}
+      </figure>`: '';
+
+    productCard += `
+      <article>
+          <h3>${product.name}</h3>
+          ${imgHtml}
+          <span class='price'>Pris: ${product.price} kr</span>
+          <span class='rating'> Betyg: ${product.rating} / 5</span>
+          <p>Kategori: ${product.category}</p>
+          <div class="buyButtons">
+          <button type="button" class="decrease" data-id="${product.id}">-</button>
+          <label for="amount-${product.id}" class="sr-only">Antal</label>
+          <input type="number" id="amount-${product.id}" value="1" disabled>
+          <button type="button" class="increase" data-id="${product.id}">+</button>
+          <button type="button" class="buy" data-id="${product.id}">Köp</button>
+          </div>
+      </article>
     `;
+  });
 
-    productsList.innerHTML += productCard;
+  productsList.innerHTML = productCard;
+
+  const buyButtons = document.querySelectorAll('#products button.buy');
+  buyButtons.forEach((btn) => {
+    btn.addEventListener('click', addProductToCart);
+  })
+
+  const increaseButtons = document.querySelectorAll('#products button.increase');
+  increaseButtons.forEach((btn) => {
+    btn.addEventListener('click', increaseCartItemAmount);
+  })
+
+  const decreaseButtons = document.querySelectorAll('#products button.decrease');
+  decreaseButtons.forEach((btn) => {
+    btn.addEventListener('click', decreaseCartItemAmount);
   })
 }
 
-printProducts()
+function increaseCartItemAmount(e) {
+  const clickedBtnId = e.target.dataset.id;
+  const input = document.querySelector(`#amount-${clickedBtnId}`);
+  input.value = Number(input.value) + 1;
+}
+
+function decreaseCartItemAmount(e) {
+  const clickedBtnId = e.target.dataset.id;
+  const input = document.querySelector(`#amount-${clickedBtnId}`);
+  input.value = Number(input.value) - 1;
+}
+
+function addProductToCart(e) {
+  const clickedBtnId = Number(e.target.dataset.id);
+
+  const input = document.querySelector(`#amount-${clickedBtnId}`);
+  const inputAmount = Number(input.value);
+
+  const product = products.find(product => product.id === clickedBtnId);
+
+  if (product === undefined) {
+    return;
+  }
+
+  const cartItem = cart.find(item => item.id === clickedBtnId);
+
+  if (cartItem) {
+    cartItem.amount += inputAmount;
+  } else {
+    cart.push({
+      ...product,
+      amount: inputAmount
+    });
+  }
+
+  input.value =1;
+
+  printCart();
+}
+
+function printCart() {
+  cartSection.innerHTML = '';
+  let cartItem = '';
+
+  cart.forEach(item => {
+    cartItem += `
+    <div class="cart-item">
+    <span>${item.name}</span>
+    <span>Antal: ${item.amount}</span>
+    <span>Pris: ${item.price} kr</span>
+    </div>
+    `;
+  });
+
+  cartSection.innerHTML += cartItem;
+}
+
+printProducts();
+
