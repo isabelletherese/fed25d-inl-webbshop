@@ -13,56 +13,320 @@
 </head>
 
 <body>
+
+  <!--------------------------------------------->
+  <!-------------------HEADER-------------------->
+  <!--------------------------------------------->
+
   <header>
-    <h1> Min webbshop</h1>
+    <div class="headerContent">
+      <h1> Min webbshop</h1>
 
-    <!--// TO DO: LÄGG TILL CLOSE ICON & STYLA MENYN I CSS-->
+      <div class="header-actions">
+        <button id="cartBtn" type="button" aria-label="Visa varukorg">
+          <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#3A5A40">
+            <path
+              d="M284.53-80.67q-30.86 0-52.7-21.97Q210-124.62 210-155.47q0-30.86 21.98-52.7Q253.95-230 284.81-230t52.69 21.98q21.83 21.97 21.83 52.83t-21.97 52.69q-21.98 21.83-52.83 21.83Zm400 0q-30.86 0-52.7-21.97Q610-124.62 610-155.47q0-30.86 21.98-52.7Q653.95-230 684.81-230t52.69 21.98q21.83 21.97 21.83 52.83t-21.97 52.69q-21.98 21.83-52.83 21.83ZM238.67-734 344-515.33h285.33l120-218.67H238.67ZM206-800.67h589.38q22.98 0 34.97 20.84 11.98 20.83.32 41.83L693.33-490.67q-11 19.34-28.87 30.67-17.87 11.33-39.13 11.33H324l-52 96h487.33V-286H278q-43 0-63-31.83-20-31.84-.33-68.17l60.66-111.33-149.33-316H47.33V-880h121.34L206-800.67Zm138 285.34h285.33H344Z" />
+          </svg>
+          <span id="cartBadge" class="badge">0</span>
+        </button>
 
-    <button id="menuBtn" type="button" aria-label="Meny">
-      <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="3A5A40" aria-hidden="true">
-        <path d="M120-240v-66.67h720V-240H120Zm0-206.67v-66.66h720v66.66H120Zm0-206.66V-720h720v66.67H120Z" />
-      </svg>
-    </button>
+        <button id="menuBtn" type="button" aria-label="Öppna meny">
+          <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#3A5A40">
+            <path d="M120-240v-66.67h720V-240H120Zm0-206.67v-66.66h720v66.66H120Zm0-206.66V-720h720v66.67H120Z" />
+          </svg>
+        </button>
 
-    <nav id="nav">
-      <div class="navbar">
-      <ul>
-        <li><a href="#">Hem</a></li>
-        <li><a href="#">Om oss</a></li>
-        <li><a href="#">Kontakt</a></li>
-      </ul>
+        <nav id="nav">
+          <button id="closeBtn" type="button" aria-label="Stäng meny">
+            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#3A5A40">
+              <path
+                d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z" />
+            </svg>
+          </button>
+
+          <div class="navbar">
+
+            <ul>
+              <li><a href="#">Hem</a></li>
+              <li><a href="#productSection">Produkter</a></li>
+              <li><a href="#">Kontakt</a></li>
+            </ul>
+          </div>
+        </nav>
       </div>
-    </nav>
+    </div>
+
+    <div id="popupContainer"></div>
   </header>
 
-  <main>
+  <!-------------------PRODUCTS------------------>
 
-    <section id="cart">Varukorgen är tom.</section>
-    <section>
+  <main>
+    <section id="productSection">
       <h2>Produkter</h2>
 
-      <!--Sort buttons-->
-      <div class="sortDropDown">
-        <label for="sortByList">Sortera efter:</label>
-        <select name="sortByList" id="sortByList">
-          <option value selected disabled>Ingen sortering</option>
-          <option value="nameAsc">Namn A-Ö</option>
-          <option value="nameDesc">Namn Ö-A</option>
-          <option value="priceAsc">Pris stigande</option>
-          <option value="priceDesc">Pris fallande</option>
-          <option value="ratingAsc">Betyg stigande</option>
-          <option value="ratingDesc">Betyg fallande</option>
-        </select>
+      <div class="productSectionContainer">
+
+        <!----------------SORT BUTTONS----------------->
+
+        <div class="sortFilterList">
+
+          <!--Filter buttons-->
+          <div class="filterBtns">
+            <button type="button" id="bodyScrubsFilterBtn">Body Scrubs</button>
+            <button type="button" id="scentedCandlesFilterBtn">Doftljus</button>
+            <button type="button" id="soapsFilterBtn">Tvåler</button>
+            <button type="button" id="showAllFilterBtn">Visa alla</button>
+          </div>
+
+          <!--Sort dropdown-->
+          <div class="sortDropdown">
+            <label for="sortByList">Sortera efter:</label>
+            <select name="sortByList" id="sortByList">
+              <option value selected disabled>Ingen sortering</option>
+              <option value="nameAsc">Namn A-Ö</option>
+              <option value="nameDesc">Namn Ö-A</option>
+              <option value="priceAsc">Pris stigande</option>
+              <option value="priceDesc">Pris fallande</option>
+              <option value="ratingAsc">Betyg stigande</option>
+              <option value="ratingDesc">Betyg fallande</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="productList" id="products"></div>
+
+      </div>
+    </section>
+
+    <!---------------------CART-------------------->
+
+    <aside id="cartMenu" class="cart-menu">
+      <button type="button" id="closeCartBtn" aria-label="Dölj varukorg">
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#3A5A40">
+          <path
+            d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z" />
+        </svg>
+      </button>
+      <h2>Varukorg</h2>
+      <div class="cartList">
+        <p><span class="cartContent">Varukorgen är tom.</span></p>
+      </div>
+      <p class="cart-total" id="cartTotal">0 kr</p>
+      <button id="checkoutBtn" aria-label="Gå till kassan"></button>
+    </aside>
+
+     <!-------------------CHECKOUT------------------>
+
+    <section id="checkout-section" class="hidden">
+      <div class="checkout-content">
+        <div class="checkout-point">
+
+          <h2>Kassa</h2>
+
+          <section class="order-form-container">
+            <form id="order-form" class="order-form">
+
+              <!-- Customer Information -->
+              <fieldset class="customer-info">
+                <legend>Kunduppgfiter</legend>
+
+                <div class="customer-info-content">
+                  <label class="input-label">
+                    <span class="required">Förnamn:</span>
+                    <input type="text" id="firstName" name="first-name" autocomplete="given-name"
+                      placeholder="Ditt namn" required>
+                    <span class="hidden error">
+                      <svg class="icon">
+                        <use href="#icon-error"></use>
+                      </svg>
+                      Fel: Förnamn måste innehålla minst två bokstäver och får inte innehålla
+                      siffror eller ogiltiga tecken.</span>
+                  </label>
+
+                  <label class="input-label">
+                    <span class="required">Efternamn:</span>
+                    <input type="text" name="last-name" autocomplete="family-name" placeholder="Ditt efternamn"
+                      required>
+                    <span class="hidden error">
+                      <svg class="icon">
+                        <use href="#icon-error"></use>
+                      </svg>
+                      Fel: Ange ett giltigt efternamn (minst 2 bokstäver). Använd endast
+                      bokstäver, bindestreck eller mellanslag.</span>
+                  </label>
+
+                  <label class="input-label">
+                    <span class="required">Adress:</span>
+                    <input type="text" name="address1" autocomplete="address-line1" placeholder="Adress" required>
+                    <span class="hidden error">
+                      <svg class="icon">
+                        <use href="#icon-error"></use>
+                      </svg>Fel: Vänligen ange både gatunamn och nummer (t.ex. Storgatan 12).</span>
+                  </label>
+
+                  <label class="input-label">
+                    <span>Adress 2 (frivillig):</span>
+                    <input type="text" name="address2" autocomplete="address-line2" placeholder="Lgh, ev. portkod">
+                    <span class="hidden error">
+                      <svg class="icon">
+                        <use href="#icon-error"></use>
+                      </svg>Fel: Använd endast bokstäver, siffror och tecken som , . / -.</span>
+                  </label>
+
+                  <label class="input-label">
+                    <span class="required">Postnummer:</span>
+                    <input type="number" name="zip-code" autocomplete="postal-code" placeholder="Postnummer" required>
+                    <span class="hidden error">
+                      <svg class="icon">
+                        <use href="#icon-error"></use>
+                      </svg>Fel: Ange ett giltigt postnummer (5 siffror).</span>
+                  </label>
+
+                  <label class="input-label">
+                    <span class="required">Postort:</span>
+                    <input type="text" name="city" autocomplete="address-level2" placeholder="Postort" required>
+                    <span class="hidden error">
+                      <svg class="icon">
+                        <use href="#icon-error"></use>
+                      </svg>Fel: Ange en giltig postort.</span>
+                  </label>
+
+                  <label class="input-label">
+                    <span class="required">Mailadress:</span>
+                    <input type="email" name="email" autocomplete="email" placeholder="Mailadress" required>
+                    <span class="hidden error">
+                      <svg class="icon">
+                        <use href="#icon-error"></use>
+                      </svg>Fel: Ange en giltig mailadress (t.ex. namn@mail.se).</span>
+                  </label>
+
+                  <label class="input-label">
+                    <span class="required">Telefonnummer:</span>
+                    <input type="tel" name="phone-number" autocomplete="tel" value="+46"
+                      placeholder="Telefonnummer +46701234567" required>
+                    <span class="hidden error">
+                      <svg class="icon">
+                        <use href="#icon-error"></use>
+                      </svg>Fel: Ange ett giltigt telefonnummer (t.ex. +46 70 123 45 67).</span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <!-- Payment Method -->
+              <div class="payment-container">
+                <fieldset class="payment-content">
+                  <legend>Betalningssätt</legend>
+
+                  <div class="radioBtns">
+                    <label class="radio-label">
+                      <input type="radio" name="payment-method" value="card" checked>
+                      <span>Kredit- eller betalkort</span>
+                    </label>
+
+                    <label class="radio-label" id="invoice-radio-selection">
+                      <input type="radio" name="payment-method" value="invoice" class="">
+                      <span>Faktura</span>
+                    </label>
+                  </div>
+
+                  <!-- Card Payment Details -->
+                  <div id="card-payment" class="">
+                    <label class="input-label"> Namn på kort
+                      <input type="text" class="cardName" name="cardName" placeholder="Anna Andersson">
+                      <span class="hidden error">
+                        <svg class="icon">
+                          <use href="#icon-error"></use>
+                        </svg>Fel: Ange namnet som står på kortet (endast bokstäver).</span>
+                    </label>
+
+                    <label class="input-label"> Kortnummer
+                      <input type="text" class="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456">
+                      <span class="hidden error">
+                        <svg class="icon">
+                          <use href="#icon-error"></use>
+                        </svg>Fel: Ange ett giltigt kortnummer (16 siffror).</span>
+                    </label>
+
+                    <div class="card-details">
+                      <label class="input-label"> Utgångsdatum
+                        <input type="text" class="MM-YY" name="MM-YY" placeholder="MM/YY">
+                        <span class="hidden error">
+                          <svg class="icon">
+                            <use href="#icon-error"></use>
+                          </svg>Fel: Ange utgångsdatum i formatet MM/YY (t.ex. 05/27).</span>
+                      </label>
+
+                      <label class="input-label">Säkerhetskod
+                        <input type="number" class="CVC" name="CVC" placeholder="CVC">
+                        <span class="hidden error">
+                          <svg class="icon">
+                            <use href="#icon-error"></use>
+                          </svg>
+                          Fel: CVC-koden ska vara 3 siffror (finns på baksidan).</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Invoice Payment Details -->
+                  <div id="invoice-payment" class="">
+                    <div class="invoice-details">
+                      <p>Fakturan skickas till din angivna mailadress.</p>
+                      <label class="input-label">Personnummer:
+                        <input type="text" name="pnr" placeholder="ÅÅÅÅMMDD-XXXX">
+                        <p class="helper-text">Krävs för kreditkontroll vid fakturaköp.</p>
+
+                        <span class="hidden error">
+                          <svg class="icon">
+                            <use href="#icon-error"></use>
+                          </svg>Fel: Vänligen ange ett giltigt personnummer (12 siffror).</span>
+                      </label>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- Order Confirmation -->
+              <fieldset class="order-confirmation">
+                <legend>Slutför beställning</legend>
+                <div class="checkboxes">
+                  <label id="gdpr-checkbox" class="gdpr-checkbox">
+                    <p>Jag har läst och godkänner att mina personuppgifter hanteras enligt integritetspolicyn.</p>
+                    <span class="hidden error">
+                      <svg class="icon">
+                        <use href="#icon-error"></use>
+                      </svg>Fel: Du behöver godkänna att vi hanterar dina personuppgifter för att kunna
+                      genomföra beställningen.</span>
+                    <input type="checkbox" id="gdpr" class="gdpr">
+                  </label>
+
+                  <label id="newsletter-checkbox" class="newsletter-checkbox">
+                    <p>Anmäl mig till nyhetsbrevet för att få de senaste uppdateringarna.</p>
+                    <input type="checkbox" id="news" class="news" checked>
+                  </label>
+                </div>
+                <div class="formBtns">
+                  <button type="submit" class="orderBtn" id="orderBtn" disabled>Beställ</button>
+                  <button type="button" class="clearOrderBtn" id="clearOrderBtn">Töm varukorg</button>
+                </div>
+              </fieldset>
+            </form>
+          </section>
+        </div>
+
+        <!--------- ORDER SUMMARY ---------->
+
+        <aside id="order-summary" class="order-summary">
+          <h2>Din order</h2>
+
+          <div id="order-summary-list" class="summary-list"></div>
+<div id="order-summary-footer" class="summary-footer"></div>
+        
+          </div>
+        </aside>
       </div>
 
-       <!--Filter buttons-->
-      <button type="button" id="bodyScrubsFilterBtn">Body Scrubs</button>
-      <button type="button" id="scentedCandlesFilterBtn">Doftljus</button>
-      <button type="button" id="soapsFilterBtn">Tvåler</button>
-      <button type="button" id="showAllFilterBtn">Visa alla</button>
-
-      <div class="product-list" id="products">
-      </div>
     </section>
   </main>
 
@@ -70,6 +334,13 @@
     footer
   </footer>
   <script type="module" src="/src/main.mjs"></script>
+
+    <!-- SVG Icons -->
+  <svg style="display: none;">
+    <symbol id="icon-error" viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+    </symbol>
+  </svg>
 </body>
 
 </html>

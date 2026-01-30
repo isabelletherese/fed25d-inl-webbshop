@@ -2,7 +2,7 @@ const products = [
   {
     id: 1,
     name: 'Dear Scrub Body Scrub Coffee',
-    imageCredit:'Dear Scrub',
+    imageCredit: 'Dear Scrub',
     imageCreditUrl: 'https://unsplash.com/photos/a-jar-of-peanut-butter-and-a-spoon-7m-aAY8fLrE?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
       src: './img/dear_scrub_coffee.png',
@@ -17,7 +17,7 @@ const products = [
   {
     id: 2,
     name: 'Dear Scrub Body Scrub Sea Salt Rose',
-    imageCredit:'Dear Scrub',
+    imageCredit: 'Dear Scrub',
     imageCreditUrl: 'https://unsplash.com/photos/a-jar-of-peanut-butter-and-a-spoon-kZLqQNYpeWI?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
       src: './img/dear_scrub_ss_rose.png',
@@ -32,7 +32,7 @@ const products = [
   {
     id: 3,
     name: 'Dear Scrub Body Scrub Sea Salt Lavender',
-    imageCredit:'Dear Scrub',
+    imageCredit: 'Dear Scrub',
     imageCreditUrl: 'https://unsplash.com/photos/a-bottle-of-medicine-GEGPGa7lYMc?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
       src: './img/dear_scrub_ss_lavender.png',
@@ -47,7 +47,7 @@ const products = [
   {
     id: 4,
     name: 'Luma Capella doftljus',
-    imageCredit:'Luma Candles',
+    imageCredit: 'Luma Candles',
     imageCreditUrl: 'https://unsplash.com/photos/black-round-container-on-white-tissue-paper-B0G8xzwTVWc?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
       src: './img/luma_capella_candle.png',
@@ -62,8 +62,8 @@ const products = [
   {
     id: 5,
     name: 'Luma Akasha doftljus',
-    imageCredit:'Luma Candles',
-    imageCreditUrl:'https://unsplash.com/photos/black-and-white-coffee-cup-Br2BwCBA-s0?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
+    imageCredit: 'Luma Candles',
+    imageCreditUrl: 'https://unsplash.com/photos/black-and-white-coffee-cup-Br2BwCBA-s0?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
       src: './img/luma_akasha_candle.png',
       width: 3500,
@@ -77,8 +77,8 @@ const products = [
   {
     id: 6,
     name: 'Candelio Candles Waste a Moment doftljus',
-       imageCredit: 'Anja Broger',
-    imageCreditUrl:'https://unsplash.com/photos/a-person-holding-a-wooden-spoon-over-a-jar-rbS6bh_ODf4?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
+    imageCredit: 'Anja Broger',
+    imageCreditUrl: 'https://unsplash.com/photos/a-person-holding-a-wooden-spoon-over-a-jar-rbS6bh_ODf4?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
       src: './img/cc_waste_a_moment_candle.png',
       width: 2000,
@@ -93,7 +93,7 @@ const products = [
     id: 7,
     name: 'Candelio Candles Palo Santo doftljus',
     imageCredit: 'Anja Broger',
-    imageCreditUrl:'https://unsplash.com/photos/a-candle-sitting-on-top-of-a-wooden-table-O6wfVFUxMMo?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
+    imageCreditUrl: 'https://unsplash.com/photos/a-candle-sitting-on-top-of-a-wooden-table-O6wfVFUxMMo?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
       src: './img/cc_palo_santo_candle.png',
       width: 2000,
@@ -108,7 +108,7 @@ const products = [
     id: 8,
     name: 'Luvia Midnight Swirl',
     imageCredit: 'Sincerely Media',
-    imageCreditUrl:'https://unsplash.com/photos/a-couple-of-soaps-sitting-on-top-of-a-table-JHTRaBNbb-A?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
+    imageCreditUrl: 'https://unsplash.com/photos/a-couple-of-soaps-sitting-on-top-of-a-table-JHTRaBNbb-A?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
       src: './img/luvia_midnight_swirl_soap.png',
       width: 2000,
@@ -123,7 +123,7 @@ const products = [
     id: 9,
     name: 'Luvia Lavender Field Bliss',
     imageCredit: 'Sincerely Media',
-    imageCreditUrl:'https://unsplash.com/photos/purple-and-white-floral-ornament-vuZeirpqmmo?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
+    imageCreditUrl: 'https://unsplash.com/photos/purple-and-white-floral-ornament-vuZeirpqmmo?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
       src: './img/luvia_lavender_soap.png',
       width: 2000,
@@ -138,7 +138,7 @@ const products = [
     id: 10,
     name: 'Luvia Wildflower Petals',
     imageCredit: 'Sincerely Media',
-    imageCreditUrl:'https://unsplash.com/photos/white-and-pink-cake-on-white-table-MWcwKjwY8yo?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
+    imageCreditUrl: 'https://unsplash.com/photos/white-and-pink-cake-on-white-table-MWcwKjwY8yo?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
       src: './img/luvia_wildflower_soap.png',
       width: 2000,
@@ -152,3 +152,70 @@ const products = [
 ];
 
 export default products;
+
+//--------------- HELGPÅSLAG 15% ----------------
+
+function isWeekend() {
+  const date = new Date();
+  const day = date.getDay();
+  const hour = date.getHours();
+  const MONDAY = 1;
+  const FRIDAY = 5;
+  const SATURDAY = 6;
+  const SUNDAY = 0;
+
+  if (day === FRIDAY && hour >= 15) {
+    return true;
+  }
+
+  if (day === SATURDAY || day === SUNDAY) {
+    return true;
+  }
+
+  if (day === MONDAY && hour < 3) {
+    return true;
+  }
+}
+
+//--------------- MÅNDAGSRABATT 10% ----------------
+
+export function isMondayMorning() {
+  const date = new Date();
+  const MONDAY = 1;
+  return date.getDay() === MONDAY && date.getHours() < 10;
+}
+
+
+export function getDisplayPrice(basePrice) {
+  if (isWeekend()) {
+    return Math.round(basePrice * 1.15);
+  } else {
+    return basePrice;
+  }
+}
+
+//---------------- MÄNGDRABATT 10% -----------------
+
+export function hasBulkDiscount(amount) {
+  const bulkAmount = 10;
+  return amount > bulkAmount;
+}
+//---------------- UTSKRIFT AV RABATTER -----------------
+
+export function getDiscountMessages(cart) {
+  const messages = [];
+
+  if (isMondayMorning()) {
+    messages.push("Måndagsrabatt: 10% på hela beställningen.");
+  }
+
+  const hasBulk = cart.some(item => hasBulkDiscount(item.amount));
+  const bulkAmount = 10;
+
+  if (hasBulk) {
+    messages.push(`Mängdrabatt: 10% rabatt vid köp av ${bulkAmount} st!`)
+  }
+  return messages.join('<br>');
+}
+
+

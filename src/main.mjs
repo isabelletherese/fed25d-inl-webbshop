@@ -1,59 +1,55 @@
+//-------------1. IMPORTER----------------
+
 import './style.scss';
-import products from './products.mjs';
+import products, { getDisplayPrice } from './products.mjs';
+import { addProductToCart, updateCartSummary } from './cart.mjs'
+import { initForm, checkFormFieldsValidity } from './checkout.mjs';
 
-let filteredProducts = Array.from(products);
+//---------2. GLOBALA VARIABLER-----------
+
+let filteredProducts = [...products];
 const productsList = document.querySelector('#products');
+const cartMenu = document.querySelector('#cartMenu');
 
-const cart = [];
-const cartSection = document.querySelector('#cart');
-
-//----------------------------------------
-//------------MENU BUTTON-----------------
-//----------------------------------------
+//----3. NAVIGERING & MENY (Header/Nav)---
 
 const menuBtn = document.querySelector('#menuBtn');
 const nav = document.querySelector('#nav');
+const closeBtn = document.querySelector('#closeBtn');
+const navLinks = document.querySelectorAll('#nav a')
 
 menuBtn.addEventListener('click', openMenu);
-nav.addEventListener('click', openMenu);
+closeBtn.addEventListener('click', closeMenu);
+navLinks.forEach(link => {
+  link.addEventListener('click', closeMenu);
+});
 
 function openMenu(e) {
-  if (e.target.nodeName === 'A') {
-    return;
-  }
   nav.classList.toggle('open');
+
+  if (nav.classList.contains('open')) {
+    closeBtn.focus();
+  }
 }
 
-//----------------------------------------
-//------------FILTER BUTTONS--------------
-//----------------------------------------
-
-const bodyScrubsFilterBtn = document.querySelector('#bodyScrubsFilterBtn');
-const scentedCandlesFilterBtn = document.querySelector('#scentedCandlesFilterBtn');
-const soapsFilterBtn = document.querySelector('#soapsFilterBtn');
-const showAllFilterBtn = document.querySelector('#showAllFilterBtn');
-
-bodyScrubsFilterBtn.addEventListener('click', () => filterProductsByCategory('Body Scrubs'));
-scentedCandlesFilterBtn.addEventListener('click', () => filterProductsByCategory('Doftljus'));
-soapsFilterBtn.addEventListener('click', () => filterProductsByCategory('Tvåler'));
-showAllFilterBtn.addEventListener('click', showAllProducts);
-
-function filterProductsByCategory(category) {
-  filteredProducts = products.filter(products => products.category === category);
-  printProducts();
-}
-function showAllProducts() {
-  filteredProducts = Array.from(products);
-  printProducts();
+function closeMenu(e) {
+  nav.classList.remove('open');
 }
 
-//----------------------------------------
-//--------------SORT DROPDOWN-------------
-//----------------------------------------
+//-------4. FILTRERING & SORTERING--------
 
 const sortByList = document.querySelector('#sortByList');
 sortByList.addEventListener('change', sortProducts);
 
+function filterProductsByCategory(category) {
+  filteredProducts = products.filter(product => product.category === category);
+  sortProducts();
+}
+
+function showAllProducts() {
+  filteredProducts = [...products];
+  sortProducts();
+}
 const sortBy = {
   nameAsc: (a, b) => a.name.localeCompare(b.name),
   nameDesc: (a, b) => b.name.localeCompare(a.name),
@@ -69,23 +65,36 @@ function sortProducts() {
   printProducts();
 }
 
+const bodyScrubsFilterBtn = document.querySelector('#bodyScrubsFilterBtn');
+const scentedCandlesFilterBtn = document.querySelector('#scentedCandlesFilterBtn');
+const soapsFilterBtn = document.querySelector('#soapsFilterBtn');
+const showAllFilterBtn = document.querySelector('#showAllFilterBtn');
+
+bodyScrubsFilterBtn.addEventListener('click', () => filterProductsByCategory('Body Scrubs'));
+scentedCandlesFilterBtn.addEventListener('click', () => filterProductsByCategory('Doftljus'));
+soapsFilterBtn.addEventListener('click', () => filterProductsByCategory('Tvåler'));
+showAllFilterBtn.addEventListener('click', showAllProducts);
+
+//---------5. PRODUKTVISNING -------------
+
 function printProducts() {
   productsList.innerHTML = '';
-  let productCard = '';
+  let productCards = '';
 
   filteredProducts.forEach(product => {
+    const displayPrice = getDisplayPrice(product.price);
 
     let creditHtml = '';
-    if(product.imageCredit) {
+    if (product.imageCredit) {
       const creditContent = product.imageCreditUrl ?
-      `<a href="${product.imageCreditUrl}" target="_blank" rel="noopener noreferrer">Foto: ${product.imageCredit}</a>`
-      : `Foto: ${product.imageCredit}`;
-      
+        `<a href="${product.imageCreditUrl}" target="_blank" rel="noopener noreferrer">Foto: ${product.imageCredit}</a>`
+        : `Foto: ${product.imageCredit}`;
+
       creditHtml = `<figcaption>${creditContent}</figcaption>`;
     }
 
     const imgHtml = product.img ? `
-      <figure class="product-image">
+      <figure class="productImage">
         <img
       src="${product.img.src}"
       width="${product.img.width}"
@@ -95,98 +104,125 @@ function printProducts() {
       ${creditHtml}
       </figure>`: '';
 
-    productCard += `
+    productCards += `
       <article>
           <h3>${product.name}</h3>
           ${imgHtml}
-          <span class='price'>Pris: ${product.price} kr</span>
+          <span class='price'>Pris: ${displayPrice} kr</span>
           <span class='rating'> Betyg: ${product.rating} / 5</span>
           <p>Kategori: ${product.category}</p>
-          <div class="buyButtons">
-          <button type="button" class="decrease" data-id="${product.id}">-</button>
-          <label for="amount-${product.id}" class="sr-only">Antal</label>
-          <input type="number" id="amount-${product.id}" value="1" disabled>
-          <button type="button" class="increase" data-id="${product.id}">+</button>
-          <button type="button" class="buy" data-id="${product.id}">Köp</button>
+          <div class="decreaseIncreaseBtns">
+            <button type="button" class="decrease" data-id="${product.id}">-</button>
+            <label for="amount-${product.id}" class="sr-only">Antal</label>
+            <input type="number" class="amountInput" id="amount-${product.id}" min-value="1" value="1" disabled>
+            <button type="button" class="increase" data-id="${product.id}">+</button>
           </div>
+          <button type="button" class="buyBtn" data-id="${product.id}">Köp</button>
+    
       </article>
     `;
   });
 
-  productsList.innerHTML = productCard;
+  productsList.innerHTML = productCards;
 
-  const buyButtons = document.querySelectorAll('#products button.buy');
+  const buyButtons = document.querySelectorAll('#products button.buyBtn');
   buyButtons.forEach((btn) => {
-    btn.addEventListener('click', addProductToCart);
+    btn.addEventListener('click', clickedBuyBtn);
   })
 
   const increaseButtons = document.querySelectorAll('#products button.increase');
   increaseButtons.forEach((btn) => {
-    btn.addEventListener('click', increaseCartItemAmount);
+    btn.addEventListener('click', increaseItemAmount);
   })
 
   const decreaseButtons = document.querySelectorAll('#products button.decrease');
   decreaseButtons.forEach((btn) => {
-    btn.addEventListener('click', decreaseCartItemAmount);
-  })
+    btn.addEventListener('click', decreaseItemAmount);
+  });
 }
 
-function increaseCartItemAmount(e) {
+function increaseItemAmount(e) {
   const clickedBtnId = e.target.dataset.id;
   const input = document.querySelector(`#amount-${clickedBtnId}`);
   input.value = Number(input.value) + 1;
 }
 
-function decreaseCartItemAmount(e) {
+function decreaseItemAmount(e) {
   const clickedBtnId = e.target.dataset.id;
   const input = document.querySelector(`#amount-${clickedBtnId}`);
-  input.value = Number(input.value) - 1;
+  let newAmount = Number(input.value) -1;
+
+  if (newAmount < 1) {
+    newAmount = 1; 
+  }
+
+  input.value = newAmount;
 }
 
-function addProductToCart(e) {
-  const clickedBtnId = Number(e.target.dataset.id);
+//--------6. KÖPKNAPP & POP UP -----------
 
+function clickedBuyBtn(e) {
+  const clickedBtn = e.target;
+  const clickedBtnId = Number(clickedBtn.dataset.id);
+  const product = products.find(product => product.id === clickedBtnId);
   const input = document.querySelector(`#amount-${clickedBtnId}`);
   const inputAmount = Number(input.value);
 
-  const product = products.find(product => product.id === clickedBtnId);
-
-  if (product === undefined) {
-    return;
+  if (product) {
+    addProductToCart(product, inputAmount);
   }
 
-  const cartItem = cart.find(item => item.id === clickedBtnId);
+  const orderTotals = updateCartSummary();
 
-  if (cartItem) {
-    cartItem.amount += inputAmount;
-  } else {
-    cart.push({
-      ...product,
-      amount: inputAmount
-    });
+  if (orderTotals) {
+    showPopup(product.name, orderTotals.subTotal);
   }
 
-  input.value =1;
+  input.value = 1;
 
-  printCart();
+  const originalText = clickedBtn.innerText;
+  clickedBtn.innerText = "Tillagd! ✓"
+  clickedBtn.disabled = true;
+
+  setTimeout(() => {
+    clickedBtn.innerText = originalText;
+    clickedBtn.disabled = false;
+  }, (1000 * 2));
+
+}
+function showPopup(productName, totalSum) {
+  const container = document.querySelector('#popupContainer');
+
+  const popup = document.createElement('div');
+  popup.classList.add('popup-card');
+  popup.innerHTML = `
+  <strong>${productName}</strong> har lagts till i varukorgen!<br>
+  <br><span class="flash-sum"> Varukorgens totalsumma: <strong> ${totalSum} kr</strong></span>
+  `;
+
+  container.prepend(popup);
+
+  setTimeout(() => {
+    popup.remove();
+  }, (1000 * 2));
 }
 
-function printCart() {
-  cartSection.innerHTML = '';
-  let cartItem = '';
+//--------7. CHECKOUT / KASSA ------------
 
-  cart.forEach(item => {
-    cartItem += `
-    <div class="cart-item">
-    <span>${item.name}</span>
-    <span>Antal: ${item.amount}</span>
-    <span>Pris: ${item.price} kr</span>
-    </div>
-    `;
-  });
+const checkoutSection = document.querySelector('#checkout-section');
+const goToCheckoutBtn = document.querySelector('#checkoutBtn');
 
-  cartSection.innerHTML += cartItem;
+function showCheckout() {
+  checkoutSection.classList.remove('hidden');
+  cartMenu.classList.remove('open');
+  checkoutSection.scrollIntoView({ behavior: 'smooth' });
+  checkFormFieldsValidity();
+}
+
+if (goToCheckoutBtn) {
+  goToCheckoutBtn.addEventListener('click', showCheckout);
 }
 
 printProducts();
+initForm();
 
