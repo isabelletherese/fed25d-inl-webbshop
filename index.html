@@ -117,7 +117,7 @@
       <button id="checkoutBtn" aria-label="Gå till kassan"></button>
     </aside>
 
-     <!-------------------CHECKOUT------------------>
+    <!-------------------CHECKOUT------------------>
 
     <section id="checkout-section" class="hidden">
       <div class="checkout-content">
@@ -177,7 +177,7 @@
 
                   <label class="input-label">
                     <span class="required">Postnummer:</span>
-                    <input type="number" name="zip-code" autocomplete="postal-code" placeholder="Postnummer" required>
+                    <input type="number" name="zip-code" placeholder="Postnummer" required>
                     <span class="hidden error">
                       <svg class="icon">
                         <use href="#icon-error"></use>
@@ -275,7 +275,7 @@
                       <p>Fakturan skickas till din angivna mailadress.</p>
                       <label class="input-label">Personnummer:
                         <input type="text" name="pnr" placeholder="ÅÅÅÅMMDD-XXXX">
-                        <p class="helper-text">Krävs för kreditkontroll vid fakturaköp.</p>
+                        <span class="helper-text">Krävs för kreditkontroll vid fakturaköp.</span>
 
                         <span class="hidden error">
                           <svg class="icon">
@@ -292,7 +292,7 @@
                 <legend>Slutför beställning</legend>
                 <div class="checkboxes">
                   <label id="gdpr-checkbox" class="gdpr-checkbox">
-                    <p>Jag har läst och godkänner att mina personuppgifter hanteras enligt integritetspolicyn.</p>
+                    <span>Jag har läst och godkänner att mina personuppgifter hanteras enligt integritetspolicyn.</span>
                     <span class="hidden error">
                       <svg class="icon">
                         <use href="#icon-error"></use>
@@ -302,7 +302,7 @@
                   </label>
 
                   <label id="newsletter-checkbox" class="newsletter-checkbox">
-                    <p>Anmäl mig till nyhetsbrevet för att få de senaste uppdateringarna.</p>
+                    <span>Anmäl mig till nyhetsbrevet för att få de senaste uppdateringarna.</span>
                     <input type="checkbox" id="news" class="news" checked>
                   </label>
                 </div>
@@ -321,21 +321,18 @@
           <h2>Din order</h2>
 
           <div id="order-summary-list" class="summary-list"></div>
-<div id="order-summary-footer" class="summary-footer"></div>
-        
-          </div>
+          <div id="order-summary-footer" class="summary-footer"></div>
         </aside>
       </div>
-
     </section>
   </main>
 
   <footer>
     footer
   </footer>
-  <script type="module" src="/src/main.mjs"></script>
+  <script type="module" src="src/main.mjs"></script>
 
-    <!-- SVG Icons -->
+  <!-- SVG Icons -->
   <svg style="display: none;">
     <symbol id="icon-error" viewBox="0 0 24 24">
       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
