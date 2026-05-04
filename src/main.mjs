@@ -1,6 +1,6 @@
 //-------------1. IMPORTER----------------
 
-import './style.scss';
+import './style.css';
 import products, { getDisplayPrice } from './products.mjs';
 import { addProductToCart, updateCartSummary } from './cart.mjs'
 import { initForm, checkFormFieldsValidity } from './checkout.mjs';
