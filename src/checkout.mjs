@@ -30,10 +30,10 @@ function toggleError(field, isValid) {
         } else {
             errorSpan.classList.remove('hidden');
         }
-}
+    }
 }
 
-function validateField(fieldName) {
+function validateField(fieldName, showError = false) {
     const field = orderForm.elements[fieldName];
     if (!field) {
         return false;
@@ -41,122 +41,128 @@ function validateField(fieldName) {
     const value = field.value.trim();
 
     if (value.length === 0 && fieldName === 'address2') {
-        toggleError(field, true);
+        if (showError) toggleError(field, true);
         return true;
     }
 
+    if (value.length === 0) {
+        if (showError) toggleError(field, false);
+        return false;
+    }
+
     const isValid = regexes[fieldName].test(value);
-    toggleError(field, isValid);
+    if (showError) toggleError(field, isValid);
     return isValid;
 }
 
-function validateGdpr() {
+function validateGdpr(showError = false) {
     const field = orderForm.elements['gdpr'];
     const isValid = field.checked;
-    const errorSpan = field.parentElement.querySelector('.error');
 
-    if (errorSpan) {
-        errorSpan.classList.toggle('hidden', isValid);
-    }
 
-    return isValid;
-}
+    if (showError) {
+        const errorSpan = field.parentElement.querySelector('.error');
 
-function togglePaymentSections() {
-    const selectedMethod = orderForm.elements['payment-method'].value;
-
-    if (selectedMethod === 'card') {
-        cardSection.classList.remove('hidden');
-        invoiceSection.classList.add('hidden');
-    } else {
-        cardSection.classList.add('hidden');
-        invoiceSection.classList.remove('hidden');
-    }
-}
-
-export function checkFormFieldsValidity() {
-    orderBtn.disabled = true;
-
-    const isCustomerInfoValid =
-        validateField('first-name') &&
-        validateField('last-name') &&
-        validateField('address1') &&
-        validateField('zip-code') &&
-        validateField('city') &&
-        validateField('email') &&
-        validateField('phone-number');
-
-    if (!isCustomerInfoValid) {
-        return;
-    }
-
-    const selectedPaymentMethod = orderForm.elements['payment-method'].value;
-
-    if (selectedPaymentMethod === 'card') {
-        const isCardPaymentValid =
-            validateField('cardName') &&
-            validateField('cardNumber') &&
-            validateField('MM-YY') &&
-            validateField('CVC') &&
-            validateGdpr();
-
-        if (!isCardPaymentValid) {
-            return;
-        }
-    } else if (selectedPaymentMethod === 'invoice') {
-        const isInvoicePaymentValid = validateField('pnr');
-
-        if (!isInvoicePaymentValid) {
-            return;
+        if (errorSpan) {
+            errorSpan.classList.toggle('hidden', isValid);
         }
     }
 
-    orderBtn.disabled = false;
+        return isValid;
 }
 
-function cleanEntireOrder() {
-    const userConfirmed = confirm('Är du säker på att du vill rensa hela din beställning?');
+    function togglePaymentSections() {
+        const selectedMethod = orderForm.elements['payment-method'].value;
 
-    if (userConfirmed === false) {
-        return;
+        if (selectedMethod === 'card') {
+            cardSection.classList.remove('hidden');
+            invoiceSection.classList.add('hidden');
+        } else {
+            cardSection.classList.add('hidden');
+            invoiceSection.classList.remove('hidden');
+        }
     }
 
-    emptyCart();
-    orderForm.reset();
-    orderForm.elements['phone-number'].value = '+46';
+    export function checkFormFieldsValidity() {
+        orderBtn.disabled = true;
 
-    checkFormFieldsValidity();
-    togglePaymentSections();
-}
+        const isCustomerInfoValid =
+            validateField('first-name') &&
+            validateField('last-name') &&
+            validateField('address1') &&
+            validateField('zip-code') &&
+            validateField('city') &&
+            validateField('email') &&
+            validateField('phone-number');
 
-export function initForm() {
+        if (!isCustomerInfoValid) {
+            return;
+        }
 
-    orderForm.addEventListener('blur', (e) => {
-        const fieldName = e.target.name;
+        const selectedPaymentMethod = orderForm.elements['payment-method'].value;
+        let isPaymentValid = false;
 
-       if (regexes[fieldName] && e.target.value.trim().length > 0) {
-        validateField(fieldName);
+        if (selectedPaymentMethod === 'card') {
+            isPaymentValid =
+                validateField('cardName') &&
+                validateField('cardNumber') &&
+                validateField('MM-YY') &&
+                validateField('CVC');
+
+        } else if (selectedPaymentMethod === 'invoice') {
+            isPaymentValid = validateField('pnr');
+        }
+
+        if (!isPaymentValid || !validateGdpr()) {
+            return;
+        }
+
+        orderBtn.disabled = false;
+    }
+
+    function cleanEntireOrder() {
+        const userConfirmed = confirm('Är du säker på att du vill rensa hela din beställning?');
+
+        if (userConfirmed === false) {
+            return;
+        }
+
+        emptyCart();
+        orderForm.reset();
+        orderForm.elements['phone-number'].value = '+46';
+
         checkFormFieldsValidity();
+        togglePaymentSections();
     }
-    }, true);
 
-    paymentRadioBtns.forEach(radio => {
-        radio.addEventListener('change', () => {
-            togglePaymentSections();
+    export function initForm() {
+
+        orderForm.addEventListener('blur', (e) => {
+            const fieldName = e.target.name;
+
+            if (regexes[fieldName]) {
+                validateField(fieldName, true);
+                checkFormFieldsValidity();
+            }
+        }, true);
+
+        paymentRadioBtns.forEach(radio => {
+            radio.addEventListener('change', () => {
+                togglePaymentSections();
+                checkFormFieldsValidity();
+            });
+        });
+
+        orderForm.elements['gdpr'].addEventListener('change', () => {
+            validateGdpr(true);
             checkFormFieldsValidity();
         });
-    });
 
-    orderForm.elements['gdpr'].addEventListener('change', () => {
-        validateGdpr();
+        const clearOrderBtn = document.querySelector('#clearOrderBtn');
+        if (clearOrderBtn) {
+            clearOrderBtn.addEventListener('click', cleanEntireOrder);
+        }
+
+        togglePaymentSections();
         checkFormFieldsValidity();
-    });
-
-    const clearOrderBtn = document.querySelector('#clearOrderBtn');
-    if (clearOrderBtn) {
-        clearOrderBtn.addEventListener('click', cleanEntireOrder);
     }
-
-    togglePaymentSections();
-    checkFormFieldsValidity();
-}

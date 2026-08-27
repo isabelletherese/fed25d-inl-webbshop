@@ -85,7 +85,7 @@ export function updateCartSummary() {
 
   //--------------- MÅNDAGSRABATT 10% ----------------
   const MONDAY = 1;
-  const TEST_MONDAY = true
+  const TEST_MONDAY = false
   const isMondayMorning = TEST_MONDAY || (new Date().getDay() === MONDAY && new Date().getHours() < 10);
   let mondayDiscount = 0
 
@@ -113,16 +113,13 @@ export function updateCartSummary() {
 
   //---------- DÖLJ FAKTURA VID KÖP ÖVER 800KR -------
 
-  const invoiceDetails = document.querySelector('#invoice-payment');
   const invoiceRadio = document.querySelector('#invoice-radio-selection');
 
-  if (invoiceRadio && invoiceDetails) {
+  if (invoiceRadio) {
     if (cartTotal > 800) {
       invoiceRadio.classList.add('hidden');
-      invoiceDetails.classList.add('hidden');
     } else {
       invoiceRadio.classList.remove('hidden');
-      invoiceDetails.classList.remove('hidden');
     }
   }
 
@@ -138,16 +135,31 @@ export function updateCartSummary() {
 }
 
 export function printCart() {
+  const checkoutBtn = document.querySelector('#checkoutBtn');
+
   cartSection.innerHTML = '';
   let cartItem = '';
   let summaryItem = '';
 
   if (cart.length === 0) {
     cartSection.innerHTML = '<p class="cart-content">Varukorgen är tom.</p>';
+  
+  if (checkoutBtn) {
+    checkoutBtn.innerText = 'Varukorgen är tom';
+    checkoutBtn.disabled = true;
+    checkoutBtn.style.opacity = "0.5";
+    checkoutBtn.style.cursor = "not-allowed";
   }
-
+} else {
+  if (checkoutBtn) {
+    checkoutBtn.innerText = 'Till kassan';
+    checkoutBtn.disabled = false;
+    checkoutBtn.style.opacity = "1";
+    checkoutBtn.style.cursor = "pointer";
+  }
+}
   const MONDAY = 1;
-  const TEST_MONDAY = true;
+  const TEST_MONDAY = false;
   const isMondayMorning = TEST_MONDAY || (new Date().getDay() === MONDAY && new Date().getHours() < 10);
 
   cart.forEach(item => {
@@ -214,22 +226,6 @@ export function printCart() {
   const cartTotalEl = document.querySelector('#cartTotal');
   if (cartTotalEl) {
     cartTotalEl.innerHTML = `<span>Varukorgens totalsumma: <strong>${orderTotals.subTotal} kr</strong></span>`;
-  }
-
-  const checkoutBtn = document.querySelector('#checkoutBtn');
-
-  if (checkoutBtn) {
-    if (orderTotals.totalItems === 0) {
-      checkoutBtn.innerText = 'Varukorgen är tom';
-      checkoutBtn.disabled = true;
-      checkoutBtn.style.opacity = "0.5";
-      checkoutBtn.style.cursor = "not-allowed";
-    } else {
-      checkoutBtn.innerText = 'Till kassan';
-      checkoutBtn.disabled = false;
-      checkoutBtn.style.opacity = "1";
-      checkoutBtn.style.cursor = "pointer";
-    }
   }
 
   const summaryList = document.querySelector('#order-summary-list');
@@ -384,4 +380,5 @@ function closeCartMenu(e) {
   cartMenu.classList.remove('open');
 }
 
+printCart();
 export default cart;
