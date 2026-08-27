@@ -1,3 +1,14 @@
+import dearScrubCoffee from './assets/img/dear_scrub_coffee.png';
+import dearScrubSsRose from './assets/img/dear_scrub_ss_rose.png';
+import dearScrubSsLavender from './assets/img/dear_scrub_ss_lavender.png';
+import lumaCapellaCandle from './assets/img/luma_capella_candle.png';
+import lumaAkashaCandle from './assets/img/luma_akasha_candle.png';
+import ccWasteAMomentCandle from './assets/img/cc_waste_a_moment_candle.png';
+import ccPaloSantoCandle from './assets/img/cc_palo_santo_candle.png';
+import luviaMidnightSwirlSoap from './assets/img/luvia_midnight_swirl_soap.png';
+import luviaLavenderSoap from './assets/img/luvia_lavender_soap.png';
+import luviaWildflowerSoap from './assets/img/luvia_wildflower_soap.png';
+
 const products = [
   {
     id: 1,
@@ -5,7 +16,7 @@ const products = [
     imageCredit: 'Dear Scrub',
     imageCreditUrl: 'https://unsplash.com/photos/a-jar-of-peanut-butter-and-a-spoon-7m-aAY8fLrE?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
-      src: './img/dear_scrub_coffee.png',
+      src: dearScrubCoffee,
       width: 2936,
       height: 2936,
       alt: 'En transparant glasburk med fylld med mörkt kroppsskrubb med doft av kaffe. En träsked bredvid visar skrubbens konsistens.',
@@ -20,7 +31,7 @@ const products = [
     imageCredit: 'Dear Scrub',
     imageCreditUrl: 'https://unsplash.com/photos/a-jar-of-peanut-butter-and-a-spoon-kZLqQNYpeWI?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
-      src: './img/dear_scrub_ss_rose.png',
+      src: dearScrubSsRose,
       width: 3070,
       height: 3070,
       alt: 'En transparant glasburk fylld med kroppsskrubb med doft av ros. En liten träsked visar det rosaaktiga saltet.',
@@ -35,7 +46,7 @@ const products = [
     imageCredit: 'Dear Scrub',
     imageCreditUrl: 'https://unsplash.com/photos/a-bottle-of-medicine-GEGPGa7lYMc?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
-      src: './img/dear_scrub_ss_lavender.png',
+      src: dearScrubSsLavender,
       width: 3330,
       height: 3330,
       alt: 'En transparant glasburk med lavendelsalt-skrubb och en träsked i förgrunden fylld med grovt vitt salt mot en ljusgrå bakgrund.',
@@ -50,7 +61,7 @@ const products = [
     imageCredit: 'Luma Candles',
     imageCreditUrl: 'https://unsplash.com/photos/black-round-container-on-white-tissue-paper-B0G8xzwTVWc?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
-      src: './img/luma_capella_candle.png',
+      src: lumaCapellaCandle,
       width: 3745,
       height: 2500,
       alt: 'Ett stort doftljus med tre vekar i en brun glasbehållare. Locket ligger bredvid på en ljus stenyta.',
@@ -65,7 +76,7 @@ const products = [
     imageCredit: 'Luma Candles',
     imageCreditUrl: 'https://unsplash.com/photos/black-and-white-coffee-cup-Br2BwCBA-s0?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
-      src: './img/luma_akasha_candle.png',
+      src: lumaAkashaCandle,
       width: 3500,
       height: 2500,
       alt: 'En minimalistisk brun glasburk med vitt vax och en enkel veke mot en ljus bakgrund. Den vita etiketten på glasburkens sida har texten Luma Akasha i modern stil.',
@@ -80,7 +91,7 @@ const products = [
     imageCredit: 'Anja Broger',
     imageCreditUrl: 'https://unsplash.com/photos/a-person-holding-a-wooden-spoon-over-a-jar-rbS6bh_ODf4?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
-      src: './img/cc_waste_a_moment_candle.png',
+      src: ccWasteAMomentCandle,
       width: 2000,
       height: 2500,
       alt: 'Ett brunt glasljus med vit etikett där det står Waste a Moment. En hand håller en brinnande tändsticka över veken mot en ljus bakgrund'
@@ -95,7 +106,7 @@ const products = [
     imageCredit: 'Anja Broger',
     imageCreditUrl: 'https://unsplash.com/photos/a-candle-sitting-on-top-of-a-wooden-table-O6wfVFUxMMo?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
-      src: './img/cc_palo_santo_candle.png',
+      src: ccPaloSantoCandle,
       width: 2000,
       height: 2500,
       alt: 'Doftljuset Palo Santo i en brun glasburk med vit etikett. Står placerat på ett träfat med kottar och bitar av trä runt omkring."',
@@ -110,7 +121,7 @@ const products = [
     imageCredit: 'Sincerely Media',
     imageCreditUrl: 'https://unsplash.com/photos/a-couple-of-soaps-sitting-on-top-of-a-table-JHTRaBNbb-A?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
-      src: './img/luvia_midnight_swirl_soap.png',
+      src: luviaMidnightSwirlSoap,
       width: 2000,
       height: 2500,
       alt: 'Två bitar lyxig tvål med ett mörkt marmormönster i svart, grått och vitt',
@@ -125,7 +136,7 @@ const products = [
     imageCredit: 'Sincerely Media',
     imageCreditUrl: 'https://unsplash.com/photos/purple-and-white-floral-ornament-vuZeirpqmmo?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
-      src: './img/luvia_lavender_soap.png',
+      src: luviaLavenderSoap,
       width: 2000,
       height: 2500,
       alt: 'Tre bitar staplad handgjord lavendeltvål i en mjuk lila nyans, dekorerad med torkade lavendelblommor på toppen.',
@@ -140,7 +151,7 @@ const products = [
     imageCredit: 'Sincerely Media',
     imageCreditUrl: 'https://unsplash.com/photos/white-and-pink-cake-on-white-table-MWcwKjwY8yo?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
     img: {
-      src: './img/luvia_wildflower_soap.png',
+      src: luviaWildflowerSoap,
       width: 2000,
       height: 2500,
       alt: 'Två bitar krämvit hadngjord tvål med små bitar av torkade rosa och lila blomblad inuti.',
