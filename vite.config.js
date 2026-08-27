@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/fed25-js-inl-webbshop',
+  base: '/fed25-inl-webbshop',
 });
